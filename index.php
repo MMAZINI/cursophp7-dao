@@ -8,8 +8,26 @@ require_once("config.php");
 
 // echo json_encode($usuarios);
 
-$usuario = new Usuario();
-$usuario->loadById(1);
-echo $usuario;
+//buscando Usuario pelo id
+// $usuario = new Usuario();
+// $usuario->loadById(1);
+// echo $usuario;
+
+//buscando todos os Usuarios
+// $lista = Usuario::loadAll();
+// echo json_encode($lista);
+
+
+// buscando por Nome
+// $search= Usuario::loadSearch("iran");
+// echo json_encode($search);
+
+//validando Login
+$validar = new Usuario();
+$validar -> validaUser("marcos","123");
+
+ echo $validar;
+
+
 
 ?>
