@@ -15,7 +15,7 @@ class Sql extends PDO{
 
 		foreach ($parameters as $key => $value) { //  varro esse array (parameters)ou seja para cada (parameto) eu recebo um (valor), como aquele exemplo $nome = :nome;
 
-			$this->setParam($key, $value);// para cada parametro varrido eu passo para o setParam que ira realizar o bind
+			$this->setParam($statment,$key, $value);// para cada parametro varrido eu passo para o setParam que ira realizar o bind
 		}
 	}	
 
