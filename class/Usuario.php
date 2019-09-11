@@ -125,31 +125,58 @@
 
 
 
+	// public function insert(){
+
+	// 		$sql = new Sql();
+	// 	    //realizaremos com select pois ira executar uma função no meu banco de dados que retornara o ultimo a iD gerado na tabela
+	// 	    // procedure
+	// 		$results = $sql->select("CALL sp_usuario_insert(:login,:senha)",array(
+			
+	// 		':login'=>$this->getLoginn(),
+	// 		':senha'=>$this->getSenha()
+
+	// 		));
+
+	// 		if(count($results) >0){
+
+	// 			$this->setData($results[0]);
+	// 		} 
+			
+	// 	}
+
 	public function insert(){
+		
+		$sql = new Sql();
 
-			$sql = new Sql();
-		    //realizaremos com select pois ira executar uma função no meu banco de dados que retornara o ultimo a iD gerado na tabela
-		    // procedure
-			$results = $sql->select("CALL sp_usuario_insert(:login,:senha)",array(
-			
-			':login'=>$this->getLoginn(),
-			':senha'=>$this->getSenha()
+		$results= $sql->query("INSERT INTO usuario (loginn,senha ) VALUES(:login, :senha)",array(
+            //aqui eu pego os atributos setados e jogo na minha query para ser alterado
+			  ':login'=>$this->getLoginn(),
+			  ':senha'=>$this->getSenha()
+			  
+		));
+				
+	}
 
-			));
-
-			if(count($results) >0){
-
-				$this->setData($results[0]);
-			} 
-			
-		}
 
 	// public function update($login, $password){
 	// 	// jogo isso para dentro dos atributos da minha clase
 	// 	$this->setLoginn($login);
 	// 	$this->setSenha($password);
-		public function update(){
-		// jogo isso para dentro dos atributos da minha clase
+
+	// 	$sql = new Sql();
+
+	// 	$results= $sql->query("UPDATE usuario set loginn = :login, senha = :senha WHERE idUsuario = :id",array(
+ //            //aqui eu pego os atributos setados e jogo na minha query para ser alterado
+	// 		  ':login'=>$this->getLoginn(),
+	// 		  ':senha'=>$this->getSenha(),
+	// 		  ':id'=>$this->getIdUsuario()
+
+	// 	));
+				
+	// }
+
+	public function update(){
+
 
 		$sql = new Sql();
 
@@ -160,14 +187,17 @@
 			  ':id'=>$this->getIdUsuario()
 
 		));
-
-
-		
-
-			
-		
+				
 	}
 
+    public function delete(){
+
+    	$sql = new Sql();
+    	
+    	$sql->query("DELETE FROM usuario WHERE idUsuario = :id", array(
+    			':id'=>$this->getIdUsuario()
+    	));
+    }
 
     
  	public function __toString(){

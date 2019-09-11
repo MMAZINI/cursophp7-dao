@@ -40,12 +40,18 @@ require_once("config.php");
 // $pessoa->update("algelino"," @algelino");
 // echo $pessoa;
 
-//alterar um Usuario
-$pessoa = new Usuario();
-$pessoa->loadById(2);
-$pessoa->setLoginn("renata");
-$pessoa->setSenha("@renata");
-$pessoa->update();
+//alterar um Usuario2
+// $pessoa = new Usuario();
+// $pessoa->loadById(2);
+// $pessoa->setLoginn("renata");
+// $pessoa->setSenha("@renata");
+// $pessoa->update();
+// echo $pessoa;
+
+//Deletando Usuario
+$pessoa= new Usuario();
+$pessoa->loadById(1);
+$pessoa->delete();
 echo $pessoa;
 
 
