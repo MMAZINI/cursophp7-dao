@@ -23,10 +23,30 @@ require_once("config.php");
 // echo json_encode($search);
 
 //validando Login
-$validar = new Usuario();
-$validar -> validaUser("marcos","123");
+// $validar = new Usuario();
+// $validar -> validaUser("marcos","123");
+//  echo $validar;
 
- echo $validar;
+//inserir um usuario novo e trazendo ele do banco 
+// $pessoa = new Usuario();
+// $pessoa->setLoginn("ronildo");
+// $pessoa->setSenha("@ronildo");
+// $pessoa->insert();
+// echo $pessoa;
+
+//alterar um Usuario
+// $pessoa = new Usuario();
+// $pessoa->loadById(2);
+// $pessoa->update("algelino"," @algelino");
+// echo $pessoa;
+
+//alterar um Usuario
+$pessoa = new Usuario();
+$pessoa->loadById(2);
+$pessoa->setLoginn("renata");
+$pessoa->setSenha("@renata");
+$pessoa->update();
+echo $pessoa;
 
 
 

@@ -8,9 +8,11 @@
  	private $dataCadastro;
  	//construtor
 
- 	// public function __construct(){
+ 	 public function __construct($login ="", $password=""){
+ 	 	$this->setLoginn($login);
+ 	 	$this->setSenha($password);
 
- 	// }
+ 	 }
 	//get e set
  	public function setIdUsuario($valor){
  		$this->idUsuario = $valor;
@@ -61,13 +63,7 @@
 
  		if(count($results) > 0){ 
 
- 			$row = $results[0];
-
- 			$this->setIdUsuario($row['idUsuario']);
- 			$this->setLoginn($row['loginn']);
- 			$this->setSenha($row['senha']);
- 			$this->setDataCadastro(new DateTime($row['dataCadastro']));
-
+ 			$this->setData($results[0]);
 
  		}
  	}
@@ -105,12 +101,9 @@
     	));
 
     	if(count($results)>0){
-    		$row = $results[0];
-
-    		$this->setIdUsuario($row['idUsuario']);
-    		$this->setLoginn($row['loginn']);
-    		$this->setSenha($row['senha']);
-    		$this->setDataCadastro(new DateTime($row['dataCadastro']));
+    		
+    		$this->setData($results[0]);
+ 
     	}
     	else {
 
@@ -118,6 +111,65 @@
     		
     	}
     } 
+
+    //criando um metodo para não precisar toda setar os parametos
+    public function setData($data){
+    	    
+    	    $this->setIdUsuario($data['idUsuario']);
+    	 	$this->setLoginn($data['loginn']);
+    		$this->setSenha($data['senha']);
+    		$this->setDataCadastro(new DateTime($data['dataCadastro']));
+
+
+    }
+
+
+
+	public function insert(){
+
+			$sql = new Sql();
+		    //realizaremos com select pois ira executar uma função no meu banco de dados que retornara o ultimo a iD gerado na tabela
+		    // procedure
+			$results = $sql->select("CALL sp_usuario_insert(:login,:senha)",array(
+			
+			':login'=>$this->getLoginn(),
+			':senha'=>$this->getSenha()
+
+			));
+
+			if(count($results) >0){
+
+				$this->setData($results[0]);
+			} 
+			
+		}
+
+	// public function update($login, $password){
+	// 	// jogo isso para dentro dos atributos da minha clase
+	// 	$this->setLoginn($login);
+	// 	$this->setSenha($password);
+		public function update(){
+		// jogo isso para dentro dos atributos da minha clase
+
+		$sql = new Sql();
+
+		$results= $sql->query("UPDATE usuario set loginn = :login, senha = :senha WHERE idUsuario = :id",array(
+            //aqui eu pego os atributos setados e jogo na minha query para ser alterado
+			  ':login'=>$this->getLoginn(),
+			  ':senha'=>$this->getSenha(),
+			  ':id'=>$this->getIdUsuario()
+
+		));
+
+
+		
+
+			
+		
+	}
+
+
+    
  	public function __toString(){
 
  		return json_encode(array(
